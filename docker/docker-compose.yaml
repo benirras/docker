@@ -1,0 +1,42 @@
+version: "3"
+services:
+  apache:
+    build: images/apache
+    volumes:
+     - runphp-main:/run/php-main
+     - runphp-wordpress:/run/php-wordpress
+     - ../www/wordpress:/var/www/html/wordpress
+     - ../www/main/:/var/www/html/main
+    extra_hosts:
+      - "mainapp.local:127.0.0.1"
+  database:
+    container_name: database
+    logging:
+      driver: none
+    image: mysql:5.7
+    # command: --default-authentication-plugin=mysql_native_password
+    environment:
+      # MYSQL_ROOT_PASSWORD: abcxyz
+      MYSQL_ROOT_PASSWORD: abcxyz
+      MYSQL_DATABASE: abcxyz
+      MYSQL_USER: abcxyz
+      MYSQL_PASSWORD: abcxyz
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7.9-1
+    environment:
+      PMA_HOST: database
+  php-main:
+    restart: always
+    build: images/php
+    volumes:
+     - ../www/main/:/var/www/html/main
+     - runphp-main:/run/php
+  php-wordpress:
+    restart: always
+    build: images/php
+    volumes:
+     - ../www/wordpress:/var/www/html/wordpress
+     - runphp-wordpress:/run/php
+volumes:
+  runphp-main:
+  runphp-wordpress:
