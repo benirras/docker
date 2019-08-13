@@ -17,10 +17,10 @@ COPY ./mainapp_vhost.conf /etc/apache2/sites-available/mainapp_vhost.conf
 RUN a2ensite mainapp_vhost.conf
 
 ## SSL wordpress
-RUN a2enmod ssl
-COPY ssl/wordpress.crt           /etc/apache2/wordpress.crt
-COPY ssl/wordpress_chain.crt     /etc/apache2/wordpress_chain.crt
-COPY ssl/wordpress.key           /etc/apache2/wordpress.key
+# RUN a2enmod ssl
+# COPY ssl/wordpress.crt           /etc/apache2/wordpress.crt
+# COPY ssl/wordpress_chain.crt     /etc/apache2/wordpress_chain.crt
+# COPY ssl/wordpress.key           /etc/apache2/wordpress.key
 
 ## SSL mainapp 
 # COPY ssl/mainapp.crt           /etc/apache2/mainapp.crt
@@ -35,11 +35,11 @@ COPY ssl/wordpress.key           /etc/apache2/wordpress.key
 #COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
 #RUN a2ensite 000-default.conf
 ## 2ba Mainapp under subpath
-#COPY ./wordpress_with_mainapp_subpath.conf /etc/apache2/sites-available/000-default.conf
+COPY ./wordpress_with_mainapp_subpath.conf /etc/apache2/sites-available/000-default.conf
 #RUN a2ensite 000-default.conf
 ## 2bb Mainapp under subpath (SSL)
-COPY ./wordpress_with_mainapp_subpath_ssl.conf /etc/apache2/sites-available/000-default.conf
-RUN a2ensite 000-default.conf
+# COPY ./wordpress_with_mainapp_subpath_ssl.conf /etc/apache2/sites-available/000-default.conf
+# RUN a2ensite 000-default.conf
 ##
 
 RUN a2enmod actions proxy proxy_ajp proxy_http proxy_fcgi rewrite
