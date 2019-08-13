@@ -33,7 +33,16 @@ Place certificates in `docker/images/apache/ssl`. Uncomment the appropriate line
 
 # Wordpress database credentials
 
-The scripts/createWordpressUser.sh does:
+Within wp-config.php the following needs to be set:
+
+```
+define( 'DB_HOST', 'database' );
+define( 'DB_NAME', getenv('WORDPRESS_MYSQL_DATABASE'));
+define( 'DB_USER', getenv('WORDPRESS_MYSQL_USER'));
+define( 'DB_PASSWORD', getenv('WORDPRESS_MYSQL_PASSWORD'));
+```
+
+The helper script `scripts/createWordpressUser.sh` can create an apporpriate database user + database with the following:
 
 user: wordpress-user
 password: eternity-radix-veldt-dropkick1
@@ -55,3 +64,16 @@ To import a database:
 
 For secrets, set them in .env (preferably don't commit this to VC - there is a gitignore entry for this), they also have to be specified in the docker-compose.yaml for each container.
 Non sensitive envs can be set in docker-compose.yaml directly.
+
+# PHPmyadmin
+
+In terms of access, this will be given an IP in an internal subnet on the docker host.
+
+This can be viewed with:
+
+`sudo docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(sudo docker ps -q)`
+
+Essentially something along the lines of:
+`docker_phpmyadmin_1_438bb54c3bd1 - 172.22.0.3`
+
+Alternatively a port on the docker host can be assigned to route to phpmyadmin.
