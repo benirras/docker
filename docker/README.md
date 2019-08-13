@@ -12,6 +12,10 @@ While the main / wordpress container only have their own.
 
 # HTTP routing
 
+## HTTP -> HTTPS
+
+TBC
+
 ## Main app
 Choose between subdomain or subpath via modifying the `1. or 2.` in `docker/images/apache/Dockerfile`.
 If choosing a subdomain, set the subdomain in `docker/images/apache/mainapp_vhost.conf`
@@ -46,3 +50,8 @@ sed -i '1d' wordpress.sql # get rid error on first line
 
 To import a database: 
 `docker exec -i database mysql -u root -pabcxyz wordpress < wordpress.sql`
+
+# ENVs / Secrets
+
+For secrets, set them in .env (preferably don't commit this to VC - there is a gitignore entry for this), they also have to be specified in the docker-compose.yaml for each container.
+Non sensitive envs can be set in docker-compose.yaml directly.

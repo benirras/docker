@@ -23,9 +23,9 @@ COPY ssl/wordpress_chain.crt     /etc/apache2/wordpress_chain.crt
 COPY ssl/wordpress.key           /etc/apache2/wordpress.key
 
 ## SSL mainapp 
-COPY ssl/mainapp.crt           /etc/apache2/mainapp.crt
-COPY ssl/mainapp_chain.crt     /etc/apache2/mainapp_chain.crt
-COPY ssl/mainapp.key           /etc/apache2/mainapp.key
+# COPY ssl/mainapp.crt           /etc/apache2/mainapp.crt
+# COPY ssl/mainapp_chain.crt     /etc/apache2/mainapp_chain.crt
+# COPY ssl/mainapp.key           /etc/apache2/mainapp.key
 
 ## Chose either of:
 ## 2aa Mainapp under subdomain

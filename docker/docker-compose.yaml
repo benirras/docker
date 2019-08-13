@@ -7,20 +7,22 @@ services:
      - runphp-wordpress:/run/php-wordpress
      - ../www/wordpress:/var/www/html/wordpress
      - ../www/main/:/var/www/html/main
+    ports:
+      - "80:80"
+      - "443:443"
     extra_hosts:
       - "mainapp.local:127.0.0.1"
   database:
     container_name: database
-    logging:
-      driver: none
     image: mysql:5.7
     # command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ../data/database:/var/lib/mysql
     environment:
-      # MYSQL_ROOT_PASSWORD: abcxyz
-      MYSQL_ROOT_PASSWORD: abcxyz
-      MYSQL_DATABASE: abcxyz
-      MYSQL_USER: abcxyz
-      MYSQL_PASSWORD: abcxyz
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7.9-1
     environment:
@@ -37,6 +39,10 @@ services:
     volumes:
      - ../www/wordpress:/var/www/html/wordpress
      - runphp-wordpress:/run/php
+    environment:
+      WORDPRESS_MYSQL_DATABASE: $WORDPRESS_MYSQL_DATABASE
+      WORDPRESS_MYSQL_USER: $WORDPRESS_MYSQL_USER
+      WORDPRESS_MYSQL_PASSWORD: $WORDPRESS_MYSQL_PASSWORD
 volumes:
   runphp-main:
   runphp-wordpress:

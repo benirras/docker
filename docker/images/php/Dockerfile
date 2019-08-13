@@ -25,5 +25,9 @@ RUN sed -i 's/;log_level/log_level/' /etc/php/7.2/fpm/pool.d/www.conf
 RUN sed -i 's/;access\.log = .*/access.log = \/proc\/self\/fd\/2/' /etc/php/7.2/fpm/pool.d/www.conf
 RUN grep 'access.log' /etc/php/7.2/fpm/pool.d/www.conf
 
+# Fix envs not being set
+# https://github.com/docker-library/php/issues/74
+RUN sed -i 's/;clear_env = .*/clear_env = no/' /etc/php/7.2/fpm/pool.d/www.conf
+
 ENTRYPOINT ["php-fpm7.2"]
 CMD ["-F"]
