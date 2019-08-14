@@ -64,10 +64,10 @@ define( 'DB_PASSWORD', getenv('WORDPRESS_MYSQL_PASSWORD'));
 
 The helper script `scripts/createWordpressUser.sh` can create an apporpriate database user + database with the following:
 
-user: wordpress-user
-password: eternity-radix-veldt-dropkick1
-database: wordpress
-host: database
+- user: wordpress-user
+- password: eternity-radix-veldt-dropkick1
+- database: wordpress
+- host: database
 
 # Database import / export
 
