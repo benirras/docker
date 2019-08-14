@@ -38,7 +38,7 @@ And uncomment (2aa)
 ## 2aa Mainapp under subdomain
 COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default.conf
-``
+```
 
 If using the subpath, please note the HTTP_HOST header will be one level deeper so the following code might be useful:
 ```
