@@ -29,14 +29,14 @@ RUN a2ensite mainapp_vhost.conf
 
 ## Chose either of:
 ## 2aa Mainapp under subdomain
-#COPY ./wordpress_vhost_ssl.conf /etc/apache2/sites-available/000-default.conf
+#COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
 #RUN a2ensite 000-default.conf
 ## 2ab Mainapp under subdomain (SSL)
-#COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
+#COPY ./wordpress_vhost_ssl.conf /etc/apache2/sites-available/000-default.conf
 #RUN a2ensite 000-default.conf
 ## 2ba Mainapp under subpath
 COPY ./wordpress_with_mainapp_subpath.conf /etc/apache2/sites-available/000-default.conf
-#RUN a2ensite 000-default.conf
+RUN a2ensite 000-default.conf
 ## 2bb Mainapp under subpath (SSL)
 # COPY ./wordpress_with_mainapp_subpath_ssl.conf /etc/apache2/sites-available/000-default.conf
 # RUN a2ensite 000-default.conf

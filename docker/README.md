@@ -17,8 +17,28 @@ While the main / wordpress container only have their own.
 TBC
 
 ## Main app
-Choose between subdomain or subpath via modifying the `1. or 2.` in `docker/images/apache/Dockerfile`.
-If choosing a subdomain, set the subdomain in `docker/images/apache/mainapp_vhost.conf`
+Choose between subdomain or subpath via commenting/uncomment the appropriate lines (further instructions below) in `docker/images/apache/Dockerfile`.
+
+### Subpath /mainapp/
+
+Follow the instructions for *Subdomain* below (but do the opposite).
+
+### Subdomain 
+Set the subdomain in `docker/images/apache/mainapp_vhost.conf`
+
+In addition to remove the /mainapp/ proxying you should switch the vhost config referenced in the `docker/images/apache/Dockerfile` so comment this line (2ba):
+```
+## 2ba Mainapp under subpath
+COPY ./wordpress_with_mainapp_subpath.conf /etc/apache2/sites-available/000-default.conf
+RUN a2ensite 000-default.conf
+```
+
+And uncomment (2aa)
+```
+## 2aa Mainapp under subdomain
+COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
+RUN a2ensite 000-default.conf
+``
 
 If using the subpath, please note the HTTP_HOST header will be one level deeper so the following code might be useful:
 ```
