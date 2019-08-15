@@ -32,6 +32,7 @@ services:
     build: images/php
     volumes:
      - ../www/main/:/var/www/html/main
+     - ./images/php/conf.d/30-custom.ini:/etc/php/7.2/fpm/conf.d/30-custom.ini
      - runphp-main:/run/php
   php-wordpress:
     restart: always
