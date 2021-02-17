@@ -19,6 +19,17 @@ RUN apt install -y vim git wget curl procps htop
 
 RUN ln -sf /proc/self/fd/2 /var/log/php7.2-fpm.log
 
+#TJ Edit to set locale https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container
+# Set the locale
+RUN apt-get -y install locales
+RUN sed -i -e 's/# \(en_US\.UTF-8 .*\)/\1/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+RUN touch /usr/share/locale/locale.alias
+RUN locale-gen
+
 # uncomment
 RUN sed -i 's/;catch_workers_output/catch_workers_output/' /etc/php/7.2/fpm/pool.d/www.conf
 RUN sed -i 's/;log_level/log_level/' /etc/php/7.2/fpm/pool.d/www.conf

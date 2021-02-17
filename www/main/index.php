@@ -2,3 +2,4 @@
 
 var_dump($_FILES);
 var_dump($_SERVER);
+?>

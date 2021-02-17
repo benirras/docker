@@ -20,19 +20,23 @@ services:
       - ../data/database:/var/lib/mysql
       - ./images/database/extra.conf:/etc/mysql/mysql.conf.d/extra.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7.9-1
     environment:
       PMA_HOST: database
+    #Comment out the ports in prod environment
+    ports:
+      - "8087:80"
   php-main:
     restart: always
     build: images/php
     volumes:
      - ../www/main/:/var/www/html/main
+     # comment out the line below to turn off error reporting
      - ./images/php/conf.d/30-custom.ini:/etc/php/7.2/fpm/conf.d/30-custom.ini
      - runphp-main:/run/php
   php-wordpress:
@@ -42,9 +46,9 @@ services:
      - ../www/wordpress:/var/www/html/wordpress
      - runphp-wordpress:/run/php
     environment:
-      WORDPRESS_MYSQL_DATABASE: $WORDPRESS_MYSQL_DATABASE
-      WORDPRESS_MYSQL_USER: $WORDPRESS_MYSQL_USER
-      WORDPRESS_MYSQL_PASSWORD: $WORDPRESS_MYSQL_PASSWORD
+      WORDPRESS_MYSQL_DATABASE: ${WORDPRESS_MYSQL_DATABASE}
+      WORDPRESS_MYSQL_USER: ${WORDPRESS_MYSQL_USER}
+      WORDPRESS_MYSQL_PASSWORD: ${WORDPRESS_MYSQL_PASSWORD}
 volumes:
   runphp-main:
   runphp-wordpress:

@@ -1,5 +1,4 @@
-docker exec -it database mysql -u root -pabcxyz -e "CREATE USER 'wordpress-user' IDENTIFIED BY 'eternity-radix-veldt-dropkick1';"
-docker exec -it database mysql -u root -pabcxyz -e "CREATE DATABASE wordpress;"
-docker exec -it database mysql -u root -pabcxyz -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress-user';"
+source ../.env
 
-
+docker exec -it database mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "CREATE USER '${WORDPRESS_MYSQL_USER}' IDENTIFIED BY '${WORDPRESS_MYSQL_PASSWORD}';"
+docker exec -it database mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON ${WORDPRESS_MYSQL_DATABASE}.* TO '${WORDPRESS_MYSQL_USER}';"

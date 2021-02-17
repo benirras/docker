@@ -22,18 +22,12 @@ RUN a2ensite mainapp_vhost.conf
 # COPY ssl/wordpress_chain.crt     /etc/apache2/wordpress_chain.crt
 # COPY ssl/wordpress.key           /etc/apache2/wordpress.key
 
-## SSL mainapp 
+## SSL mainapp
 # COPY ssl/mainapp.crt           /etc/apache2/mainapp.crt
 # COPY ssl/mainapp_chain.crt     /etc/apache2/mainapp_chain.crt
 # COPY ssl/mainapp.key           /etc/apache2/mainapp.key
 
 ## Chose either of:
-## 2aa Mainapp under subdomain
-#COPY ./wordpress_vhost.conf /etc/apache2/sites-available/000-default.conf
-#RUN a2ensite 000-default.conf
-## 2ab Mainapp under subdomain (SSL)
-#COPY ./wordpress_vhost_ssl.conf /etc/apache2/sites-available/000-default.conf
-#RUN a2ensite 000-default.conf
 ## 2ba Mainapp under subpath
 COPY ./wordpress_with_mainapp_subpath.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default.conf
